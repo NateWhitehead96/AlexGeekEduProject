@@ -7,7 +7,12 @@ public class PlayerScript : MonoBehaviour
     public float moveSpeed; // our movement speed variable
     public Vector3 MoveDirection; // our direction for moving
     public Rigidbody Rigidbody;
-    
+
+    public float xRotation;
+    public float yRotation;
+    public float horizontalSpeed;
+    public float verticalSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +23,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         Move();
+        RotatePlayer();
     }
 
     void Move()
@@ -45,5 +51,17 @@ public class PlayerScript : MonoBehaviour
         //MoveDirection = transform.forward * vertical + transform.right * horizontal; // storing which way we're facing
         //Vector3 force = MoveDirection * (moveSpeed * Time.deltaTime); // applying the move speed to that direction
         //transform.position += force; // the final step, moving our position
+    }
+
+    void RotatePlayer() // rotating the player
+    {
+        float mouseX = Input.GetAxis("Mouse X");
+        yRotation = mouseX * horizontalSpeed * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y");
+        xRotation = mouseY * verticalSpeed * Time.deltaTime;
+        Vector3 PlayerRotation = transform.rotation.eulerAngles;
+        PlayerRotation.x -= xRotation;
+        PlayerRotation.y += yRotation;
+        transform.rotation = Quaternion.Euler(PlayerRotation);
     }
 }
