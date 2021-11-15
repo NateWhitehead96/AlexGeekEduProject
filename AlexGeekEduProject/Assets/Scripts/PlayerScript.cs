@@ -12,11 +12,15 @@ public class PlayerScript : MonoBehaviour
     public float yRotation;
     public float horizontalSpeed;
     public float verticalSpeed;
+    public float JumpForce;
+
+    public GameObject BlockToPlace; // the block we want to place
+    public Transform PlacementPosition; // where we place the block
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked; // we're locking our mouse inside the game screen
     }
 
     // Update is called once per frame
@@ -24,33 +28,29 @@ public class PlayerScript : MonoBehaviour
     {
         Move();
         RotatePlayer();
+        PlaceBlock();
+    }
+
+    void PlaceBlock()
+    {
+        if (Input.GetMouseButtonDown(1)) // on right click
+        {
+            Instantiate(BlockToPlace, PlacementPosition.position, PlacementPosition.rotation); // spawn the block on our placement position
+        }
     }
 
     void Move()
     {
-        if (Input.GetKey("w")) // moving forward
+        float horizontal = Input.GetAxis("Horizontal"); // storing our horizontal movement
+        float vertical = Input.GetAxis("Vertical"); // storing vertical movement
+        MoveDirection = transform.forward * vertical + transform.right * horizontal; // storing which way we're facing
+        Vector3 force = MoveDirection * (moveSpeed * Time.deltaTime); // applying the move speed to that direction
+        transform.position += force; // the final step, moving our position
+
+        if (Input.GetKeyDown("space"))
         {
-            transform.Translate(transform.forward * (moveSpeed * Time.deltaTime));
-            //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveSpeed * Time.deltaTime);
-            //Rigidbody.AddForce(Vector3.forward * moveSpeed);
+            Rigidbody.AddForce(Vector3.up * JumpForce);
         }
-        if (Input.GetKey("s"))
-        {
-            transform.Translate(-transform.forward * (moveSpeed * Time.deltaTime));
-        }
-        if (Input.GetKey("a"))
-        {
-            transform.Translate(-transform.right * (moveSpeed * Time.deltaTime));
-        }
-        if (Input.GetKey("d"))
-        {
-            transform.Translate(transform.right * (moveSpeed * Time.deltaTime));
-        }
-        //float horizontal = Input.GetAxis("Horizontal"); // storing our horizontal movement
-        //float vertical = Input.GetAxis("Vertical"); // storing vertical movement
-        //MoveDirection = transform.forward * vertical + transform.right * horizontal; // storing which way we're facing
-        //Vector3 force = MoveDirection * (moveSpeed * Time.deltaTime); // applying the move speed to that direction
-        //transform.position += force; // the final step, moving our position
     }
 
     void RotatePlayer() // rotating the player
