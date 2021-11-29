@@ -19,6 +19,11 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject CurrentBlock;
 
+    // Amount of blocks
+    public int NumNormalBlocks;
+    public int NumBouncyBlocks;
+    public int NumPhysicsBlocks;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +50,23 @@ public class PlayerScript : MonoBehaviour
             {
                 PlacementPosition.position = hit.point + hit.normal * 0.5f;
                 PlacementPosition.position = new Vector3(Mathf.Round(PlacementPosition.position.x), Mathf.Round(PlacementPosition.position.y), Mathf.Round(PlacementPosition.position.z));
-                Instantiate(CurrentBlock, PlacementPosition.position, Quaternion.identity); // spawn the block on our placement position
+
+                if (CurrentBlock == BlockToPlace[0] && NumNormalBlocks > 0) // we want to place a normal block
+                {
+                    NumNormalBlocks--;
+                    Instantiate(CurrentBlock, PlacementPosition.position, Quaternion.identity); // spawn the block on our placement position
+                }
+                if (CurrentBlock == BlockToPlace[1] && NumBouncyBlocks > 0) // we want to place a bouncy block
+                {
+                    NumBouncyBlocks--;
+                    Instantiate(CurrentBlock, PlacementPosition.position, Quaternion.identity); // spawn the block on our placement position
+                }
+                if (CurrentBlock == BlockToPlace[2] && NumPhysicsBlocks > 0) // we want to place a physics block
+                {
+                    NumPhysicsBlocks--;
+                    Instantiate(CurrentBlock, PlacementPosition.position, Quaternion.identity); // spawn the block on our placement position
+                }
+
             }
             
         }
