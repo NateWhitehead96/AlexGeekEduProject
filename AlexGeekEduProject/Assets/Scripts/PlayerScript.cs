@@ -24,6 +24,10 @@ public class PlayerScript : MonoBehaviour
     public int NumBouncyBlocks;
     public int NumPhysicsBlocks;
 
+    public int BlockNum; // corresponds to block to place array
+
+    public bool jumping; // this bool keeps track of our jumping
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,6 +90,28 @@ public class PlayerScript : MonoBehaviour
         {
             CurrentBlock = BlockToPlace[2];
         }
+
+        if (Input.GetKeyDown("e")) // going forward through our current blocks
+        {
+            BlockNum++;
+            if(BlockNum >= BlockToPlace.Length) // if we've cycled past our alloted blocks reset to 0
+            {
+                BlockNum = 0;
+                CurrentBlock = BlockToPlace[BlockNum];
+            }
+            CurrentBlock = BlockToPlace[BlockNum]; // make our current block the next block
+        }
+        if (Input.GetKeyDown("q"))
+        {
+            BlockNum--;
+            if(BlockNum < 0) // going back through our current blocks
+            {
+                BlockNum = BlockToPlace.Length; // set it to the max number
+                CurrentBlock = BlockToPlace[BlockNum];
+            }
+            CurrentBlock = BlockToPlace[BlockNum];
+        }
+
     }
 
     void Move()
@@ -96,9 +122,10 @@ public class PlayerScript : MonoBehaviour
         Vector3 force = MoveDirection * (moveSpeed * Time.deltaTime); // applying the move speed to that direction
         transform.position += force; // the final step, moving our position
 
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") && jumping == false) // we're hitting space and not jumping, then jump
         {
             Rigidbody.AddForce(Vector3.up * JumpForce);
+            jumping = true; // set our player to jumping
         }
 
         if (Input.GetKey(KeyCode.Z)) // resetting our rotation to 0,0,0
@@ -119,4 +146,13 @@ public class PlayerScript : MonoBehaviour
         PlayerRotation.y += yRotation;
         transform.rotation = Quaternion.Euler(PlayerRotation);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Cube")) // when we land or collide with a cube, set jumping to false
+        {
+            jumping = false;
+        }
+    }
+
 }

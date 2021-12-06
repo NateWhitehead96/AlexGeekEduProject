@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LavaRising : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class LavaRising : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             print("You got got by the lava");
+            Cursor.lockState = CursorLockMode.None; // reverting the cursor back
+            SceneManager.LoadScene(2); // load our game over scene
         }
     }
 }
