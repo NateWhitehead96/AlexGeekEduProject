@@ -28,6 +28,11 @@ public class PlayerScript : MonoBehaviour
 
     public bool jumping; // this bool keeps track of our jumping
 
+    // Showing current block
+    public GameObject HeldBlock; // the block we're holding
+    public Material[] BlockMaterials;
+    public LayerMask GroundMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +47,7 @@ public class PlayerScript : MonoBehaviour
         RotatePlayer();
         PlaceBlock();
         SwitchBlock();
+        GroundCheck();
     }
 
     void PlaceBlock()
@@ -101,16 +107,20 @@ public class PlayerScript : MonoBehaviour
             }
             CurrentBlock = BlockToPlace[BlockNum]; // make our current block the next block
         }
-        if (Input.GetKeyDown("q"))
-        {
-            BlockNum--;
-            if(BlockNum < 0) // going back through our current blocks
-            {
-                BlockNum = BlockToPlace.Length; // set it to the max number
-                CurrentBlock = BlockToPlace[BlockNum];
-            }
-            CurrentBlock = BlockToPlace[BlockNum];
-        }
+
+        HeldBlock.GetComponent<MeshRenderer>().material = BlockMaterials[BlockNum];
+
+        
+        //if (Input.GetKeyDown("q"))
+        //{
+        //    BlockNum--;
+        //    if(BlockNum < 0) // going back through our current blocks
+        //    {
+        //        BlockNum = BlockToPlace.Length; // set it to the max number
+        //        CurrentBlock = BlockToPlace[BlockNum];
+        //    }
+        //    CurrentBlock = BlockToPlace[BlockNum];
+        //}
 
     }
 
@@ -147,12 +157,22 @@ public class PlayerScript : MonoBehaviour
         transform.rotation = Quaternion.Euler(PlayerRotation);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void GroundCheck()
     {
-        if (collision.gameObject.CompareTag("Cube")) // when we land or collide with a cube, set jumping to false
+        //Ray ray;
+        //RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector3.down, 1f, GroundMask))
         {
             jumping = false;
         }
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Cube")) // when we land or collide with a cube, set jumping to false
+    //    {
+    //        jumping = false;
+    //    }
+    //}
 
 }

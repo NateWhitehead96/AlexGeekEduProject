@@ -22,5 +22,10 @@ public class LavaRising : MonoBehaviour
             Cursor.lockState = CursorLockMode.None; // reverting the cursor back
             SceneManager.LoadScene(2); // load our game over scene
         }
+
+        if (other.gameObject.CompareTag("Cube"))
+        {
+            Destroy(other.gameObject); // we delete the cubes getting swallowed by the lava
+        }
     }
 }
