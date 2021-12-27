@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  HitEffect: {fileID: 2668599588045340393, guid: 4f883c2b3b2706c48ac9c7c485175547, type: 3}
 --- !u!95 &1950491784
 Animator:
   serializedVersion: 3
