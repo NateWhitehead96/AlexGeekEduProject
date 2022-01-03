@@ -6,10 +6,12 @@ public class Enemy : MonoBehaviour
 {
     public int moveSpeed;
     public GameObject HitEffect; // a gameobject reference to our particle system
+    public GameObject effect;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -40,13 +42,14 @@ public class Enemy : MonoBehaviour
     IEnumerator Dying()
     {
         // disable animation and colliders
-        gameObject.GetComponent<Animator>().StopPlayback();
+        animator.SetBool("isDying", true);
         gameObject.GetComponent<BoxCollider2D>().enabled = false; // disable the collider to allow other enemies to pass
         moveSpeed = 0;
         // play the effect
-        Instantiate(HitEffect, transform.position, Quaternion.identity);
+        effect = Instantiate(HitEffect, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(3);
         // destroy this gameobject
+        Destroy(effect); // destroy the particle effect
         Destroy(gameObject); // destroy enemy
     }
 }
