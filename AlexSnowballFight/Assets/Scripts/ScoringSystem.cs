@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoringSystem : MonoBehaviour
 {
@@ -27,5 +28,10 @@ public class ScoringSystem : MonoBehaviour
         LivesText.text = "Lives: " + Lives;
         ScoreText.text = "Score: " + Score;
         WavesText.text = "Wave: " + Wave;
+
+        if(Lives <= 0) // when we hit 0 lives go to game over scene
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 }

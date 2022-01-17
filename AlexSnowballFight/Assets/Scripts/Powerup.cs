@@ -21,17 +21,17 @@ public class Powerup : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         int x = Random.Range(0, 3);
 
-        if(x == 0) // if the first type is chosen
+        if (x == 0) // if the first type is chosen
         {
             type = Type.IncreaseShootSpeed;
             sprite.color = Color.green;
         }
-        if(x == 1) // if the second type is chosen
+        if (x == 1) // if the second type is chosen
         {
             type = Type.IncreaseSnowballSize;
             sprite.color = Color.cyan;
         }
-        if(x == 2) // if the 3rd type is chosen
+        if (x == 2) // if the 3rd type is chosen
         {
             type = Type.AddHealth;
             sprite.color = Color.magenta;
