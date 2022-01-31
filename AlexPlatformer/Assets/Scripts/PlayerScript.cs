@@ -61,5 +61,11 @@ public class PlayerScript : MonoBehaviour
         jumping = false; // land on anything we stop jumping
     }
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Head"))
+        {
+            Destroy(collision.transform.parent.gameObject); // destroy the whole spider or ground enemy
+        }
+    }
 }
