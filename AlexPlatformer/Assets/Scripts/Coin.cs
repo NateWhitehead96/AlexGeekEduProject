@@ -35,6 +35,7 @@ public class Coin : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // get score, add coin to whatever play sound effect if we want
+            PlayerScript.Score++; // add to our score
             Destroy(gameObject); // destroy the coin
         }
     }

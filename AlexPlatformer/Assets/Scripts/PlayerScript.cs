@@ -16,10 +16,14 @@ public class PlayerScript : MonoBehaviour
     public bool walking;
     public bool jumping;
 
+    public static int Score; // the player's score
+    public static int Health; // the player's health
+
     // Start is called before the first frame update
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>(); // makes sure our sprite is the sprite the script is attached to
+        Health = 3; // assign health
     }
 
     // Update is called once per frame
@@ -49,7 +53,7 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isWalking", walking); // this will take care of switching to the walking animation
         animator.SetBool("isJumping", jumping); // this will take care of switching to the jump animation
 
-        if (Input.GetKeyDown(KeyCode.Space)) // jump
+        if (Input.GetKeyDown(KeyCode.Space) && jumping == false) // jump
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             jumping = true;

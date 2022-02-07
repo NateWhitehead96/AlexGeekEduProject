@@ -28,4 +28,12 @@ public class GroundEnemy : MonoBehaviour
             direction = -1; // go to the left
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerScript.Health--; // lose health when we hit an enemy
+        }
+    }
 }
