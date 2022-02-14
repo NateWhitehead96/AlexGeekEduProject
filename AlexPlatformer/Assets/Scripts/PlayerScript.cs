@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     // animator helpers
     public bool walking;
     public bool jumping;
+    public bool climbing;
 
     public static int Score; // the player's score
     public static int Health; // the player's health
@@ -58,6 +59,14 @@ public class PlayerScript : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             jumping = true;
         }
+        if (Input.GetKey(KeyCode.W) && climbing == true) // when we press W, we move up
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + moveSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.S) && climbing == true) // when we press S, we move down
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y - moveSpeed * Time.deltaTime);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -71,5 +80,19 @@ public class PlayerScript : MonoBehaviour
         {
             Destroy(collision.transform.parent.gameObject); // destroy the whole spider or ground enemy
         }
+        if (collision.gameObject.CompareTag("Ladder")) // if that object is a ladder
+        {
+            climbing = true;
+            rb.gravityScale = 0;
+        }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder")) // if that object is a ladder
+        {
+            climbing = false;
+            rb.gravityScale = 1;
+        }
+    }
+
 }
