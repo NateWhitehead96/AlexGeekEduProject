@@ -20,6 +20,8 @@ public class PlayerScript : MonoBehaviour
     public static int Score; // the player's score
     public static int Health; // the player's health
 
+    public bool hasKey; // this will tell if the player has the key for the level or not
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,6 +86,11 @@ public class PlayerScript : MonoBehaviour
         {
             climbing = true;
             rb.gravityScale = 0;
+        }
+        if(collision.gameObject.name == "Key") // we touch the key of the level this time by checking the name of the object
+        {
+            hasKey = true; // set collecting key to true
+            Destroy(collision.gameObject); // destroy the key
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
