@@ -55,6 +55,7 @@ public class PlayerScript : MonoBehaviour
 
         animator.SetBool("isWalking", walking); // this will take care of switching to the walking animation
         animator.SetBool("isJumping", jumping); // this will take care of switching to the jump animation
+        animator.SetBool("isClimbing", climbing); // this will take care of switching to the climb animation
 
         if (Input.GetKeyDown(KeyCode.Space) && jumping == false) // jump
         {
