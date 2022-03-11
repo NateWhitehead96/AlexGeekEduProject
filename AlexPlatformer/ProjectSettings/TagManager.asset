@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Head
   - Ladder
+  - HiddenWall
   layers:
   - Default
   - TransparentFX

@@ -8,10 +8,12 @@ public class GroundEnemy : MonoBehaviour
     public int direction;
     public float leftBounds; // how far to the left it can go
     public float rightBounds; // how far to the right it can go
+
+    private SpriteRenderer sprite; // access to the sprite for flipping
     // Start is called before the first frame update
     void Start()
     {
-        
+        sprite = GetComponent<SpriteRenderer>(); // make sure it uses the enemy sprite renderer
     }
 
     // Update is called once per frame
@@ -22,10 +24,12 @@ public class GroundEnemy : MonoBehaviour
         if(transform.position.x < leftBounds)
         {
             direction = 1; // go to the right
+            sprite.flipX = true;
         }
         if(transform.position.x > rightBounds)
         {
             direction = -1; // go to the left
+            sprite.flipX = false;
         }
     }
 

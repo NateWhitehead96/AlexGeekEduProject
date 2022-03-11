@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class PlayerScript : MonoBehaviour
     public static int Health; // the player's health
 
     public bool hasKey; // this will tell if the player has the key for the level or not
+
+    public Transform Checkpoint; // respawn point
 
     // Start is called before the first frame update
     void Start()
@@ -93,6 +96,14 @@ public class PlayerScript : MonoBehaviour
             hasKey = true; // set collecting key to true
             Destroy(collision.gameObject); // destroy the key
         }
+        if(collision.gameObject.name == "HiddenWalls") // or if using tag collision.gameObject.CompareTag("HiddenWall")
+        {
+            collision.gameObject.GetComponent<TilemapRenderer>().enabled = false; // when we walk into the wall, disable the render for it
+        }
+        if(collision.gameObject.name == "Deathplane")
+        {
+            transform.position = Checkpoint.position; // reset the player back to the checkpoint
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -100,6 +111,10 @@ public class PlayerScript : MonoBehaviour
         {
             climbing = false;
             rb.gravityScale = 1;
+        }
+        if(collision.gameObject.name == "HiddenWalls")
+        {
+            collision.gameObject.GetComponent<TilemapRenderer>().enabled = true; // enable the render of the walls when we leave the wall
         }
     }
 
