@@ -36,6 +36,7 @@ public class Coin : MonoBehaviour
         {
             // get score, add coin to whatever play sound effect if we want
             PlayerScript.Score++; // add to our score
+            SoundManager.instance.pickup.Play(); // plays the pickup sound
             Destroy(gameObject); // destroy the coin
         }
     }

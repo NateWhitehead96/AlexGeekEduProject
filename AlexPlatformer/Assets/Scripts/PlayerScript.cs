@@ -64,6 +64,7 @@ public class PlayerScript : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             jumping = true;
+            SoundManager.instance.jump.Play(); // plays the jump sound
         }
         if (Input.GetKey(KeyCode.W) && climbing == true) // when we press W, we move up
         {
@@ -73,6 +74,20 @@ public class PlayerScript : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - moveSpeed * Time.deltaTime);
         }
+    }
+
+    public void PlayerHurt() // this function will be called by other things that hurt the player
+    {
+        StartCoroutine(Hurt()); // this coroutine will handle all of the damage the player take as well as the animation
+    }
+
+    IEnumerator Hurt()
+    {
+        animator.SetBool("isHurt", true); // turn on the hurt animation
+        Health--; // lose health
+        SoundManager.instance.hurt.Play(); // plays the hurt sound effect
+        yield return new WaitForSeconds(0.5f); // wait for the animation to finish
+        animator.SetBool("isHurt", false); // turn off the animation
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

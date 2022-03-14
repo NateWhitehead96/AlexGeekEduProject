@@ -36,5 +36,9 @@ public class Thwamp : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         rb.gravityScale = 0; // once it slams down, make gravity 0 so it can float up
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerScript>().PlayerHurt(); // hurt the player
+        }
     }
 }

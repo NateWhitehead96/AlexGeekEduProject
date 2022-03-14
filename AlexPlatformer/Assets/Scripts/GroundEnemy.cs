@@ -37,7 +37,7 @@ public class GroundEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerScript.Health--; // lose health when we hit an enemy
+            collision.gameObject.GetComponent<PlayerScript>().PlayerHurt(); // this will hurt the player and play the animation
         }
     }
 }
