@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; // the is the instance of the game manager
 
     public int LevelsBeaten; // how many, or which level we've beaten
+    public int Lives = 3;
     private void Awake() // singleton design pattern
     {
         if(instance != null) // if we already have a instance

@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     public Animator animator; // our animation controller
 
     private SpriteRenderer sprite; // our player's sprite
+    public ParticleSystem dustTrail; // dusty trail / grassy trail our player leaves behind
 
     // animator helpers
     public bool walking;
@@ -59,6 +60,15 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isWalking", walking); // this will take care of switching to the walking animation
         animator.SetBool("isJumping", jumping); // this will take care of switching to the jump animation
         animator.SetBool("isClimbing", climbing); // this will take care of switching to the climb animation
+        // Activating and deactivating particle effect
+        if (walking == true)
+        {
+            dustTrail.Play(); // have the particles play
+        }
+        if (walking == false)
+        {
+            dustTrail.Stop(); // stop the particles when we aren't moving
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && jumping == false) // jump
         {
