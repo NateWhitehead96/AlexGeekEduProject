@@ -119,7 +119,7 @@ public class PlayerScript : MonoBehaviour
         if(collision.gameObject.name == "Key") // we touch the key of the level this time by checking the name of the object
         {
             hasKey = true; // set collecting key to true
-            Destroy(collision.gameObject); // destroy the key
+            //Destroy(collision.gameObject); // destroy the key
         }
         if(collision.gameObject.name == "HiddenWalls") // or if using tag collision.gameObject.CompareTag("HiddenWall")
         {
