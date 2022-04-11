@@ -23,12 +23,21 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        LoadGame(); // when we start the game load our save
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SaveGame()
     {
-        
+        PlayerPrefs.SetInt("Lives", Lives); // save whatever amount of lives we have, to our computer and save it under the name Lives
+        PlayerPrefs.SetInt("Levels", LevelsBeaten); // save the levels we've beaten
+    }
+
+    public void LoadGame()
+    {
+        if (PlayerPrefs.HasKey("Lives")) // check if we have saved before
+        {
+            Lives = PlayerPrefs.GetInt("Lives"); // when we load the game, set our lives to be this number that was saved
+            LevelsBeaten = PlayerPrefs.GetInt("Levels"); // load the levels we've beaten
+        }
     }
 }

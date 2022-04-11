@@ -23,7 +23,11 @@ public class DoorScript : MonoBehaviour
         {
             if (FindObjectOfType<PlayerScript>().hasKey && Input.GetKeyDown(KeyCode.W) && playerInDoor == true) // we have the key
             {
-                GameManager.instance.LevelsBeaten = CurrentLevel; // the level we've beaten will be the current level
+                if (GameManager.instance.LevelsBeaten < CurrentLevel) // only when our levels beaten is less than "next level"
+                {
+                    GameManager.instance.LevelsBeaten = CurrentLevel; // the level we've beaten will be the current level
+                }
+                GameManager.instance.SaveGame(); // save our progress
                 SceneManager.LoadScene(LevelToLoad); // load the level by index
             }
         }
@@ -31,6 +35,7 @@ public class DoorScript : MonoBehaviour
         {        // pressing W                      we're in the door          we've beaten enough levels to enter
             if (Input.GetKeyDown(KeyCode.W) && playerInDoor == true && GameManager.instance.LevelsBeaten >= LevelToLoad) // we're hitting a key and we're inside the door
             {
+                GameManager.instance.SaveGame(); // save our progress
                 SceneManager.LoadScene(LevelToLoad); // load the level by index
             }
         }
