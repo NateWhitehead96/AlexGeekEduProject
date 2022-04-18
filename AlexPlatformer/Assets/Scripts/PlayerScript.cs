@@ -103,6 +103,17 @@ public class PlayerScript : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         jumping = false; // land on anything we stop jumping
+        if (collision.gameObject.GetComponent<FloatingPlatform>())
+        {
+            transform.parent = collision.gameObject.transform; // parent player to platform so they move with the platform
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<FloatingPlatform>())
+        {
+            transform.parent = null; // unparenting the player so they are their own gameobject
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
