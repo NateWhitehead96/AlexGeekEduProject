@@ -34,7 +34,7 @@ public class HUD : MonoBehaviour
         {
             HeartTwo.sprite = EmptyHeart;
         }
-        if(PlayerScript.Health <= 0)
+        if(PlayerScript.Health == 0)
         {
             GameManager.instance.Lives--; // subtract 1 life
             PlayerScript.Health = 3; // reset health

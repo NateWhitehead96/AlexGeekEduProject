@@ -26,16 +26,33 @@ public class PlayerScript : MonoBehaviour
 
     public Transform Checkpoint; // respawn point
 
+    public GameObject PauseCanvas; // the pause Canvas
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1; // makes sure that between scene (specifically going to hub from pause) we can still move unpaused
         sprite = GetComponent<SpriteRenderer>(); // makes sure our sprite is the sprite the script is attached to
         Health = 3; // assign health
+        PauseCanvas.SetActive(false); // hide the pause on start
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {// Pause input
+        if (Input.GetKeyDown(KeyCode.P)) // when we hit pee we pause the game
+        {
+            if (PauseCanvas.activeInHierarchy) // if pause is on screen
+            {
+                PauseCanvas.SetActive(false); // hide
+                Time.timeScale = 1; // resume time
+            }
+            else // pause is not on screen
+            {
+                PauseCanvas.SetActive(true); // show
+                Time.timeScale = 0; // pause time
+            }
+        }
+
         if (Input.GetKey(KeyCode.D)) // moving right
         {
             transform.position = new Vector3(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
