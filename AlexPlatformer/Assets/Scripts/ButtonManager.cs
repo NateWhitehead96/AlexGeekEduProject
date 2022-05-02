@@ -16,4 +16,10 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene(0); // load hubworld
     }
+
+    public void Revive()
+    {
+        GameManager.instance.Lives = 3;
+        SceneManager.LoadScene(0);
+    }
 }

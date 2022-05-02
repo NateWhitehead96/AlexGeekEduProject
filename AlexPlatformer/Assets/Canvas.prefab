@@ -353,6 +353,7 @@ MonoBehaviour:
   HeartTwo: {fileID: 1888749846777503290}
   HeartThree: {fileID: 1888749848810625321}
   EmptyHeart: {fileID: 7803244411431362681, guid: 8bee330786de7774cab119b10cb0f89c, type: 3}
+  FullHeart: {fileID: -329807682860033722, guid: 8bee330786de7774cab119b10cb0f89c, type: 3}
   LivesText: {fileID: 756160786}
 --- !u!1 &1888749847019758390
 GameObject:
