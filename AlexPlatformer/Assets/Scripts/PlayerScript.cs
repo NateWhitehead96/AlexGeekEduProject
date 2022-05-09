@@ -18,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     public bool walking;
     public bool jumping;
     public bool climbing;
+    public bool swimming; // no animation but will be useful for water level
 
     public static int Score; // the player's score
     public static int Health; // the player's health
@@ -87,6 +88,10 @@ public class PlayerScript : MonoBehaviour
             dustTrail.Stop(); // stop the particles when we aren't moving
         }
 
+        if(swimming == true)
+        {
+            jumping = false; // this will allow for infinite jumps while in the water
+        }
         if (Input.GetKeyDown(KeyCode.Space) && jumping == false) // jump
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
@@ -157,6 +162,13 @@ public class PlayerScript : MonoBehaviour
         {
             transform.position = Checkpoint.position; // reset the player back to the checkpoint
         }
+        if(collision.gameObject.name == "Water")
+        {
+            swimming = true;
+            rb.gravityScale = 0.3f; // player will have lower gravity
+            moveSpeed = 3; // lower speed and jumping
+            jumpForce = 3;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -168,6 +180,13 @@ public class PlayerScript : MonoBehaviour
         if(collision.gameObject.name == "HiddenWalls")
         {
             collision.gameObject.GetComponent<TilemapRenderer>().enabled = true; // enable the render of the walls when we leave the wall
+        }
+        if (collision.gameObject.name == "Water")
+        {
+            swimming = false;
+            rb.gravityScale = 1; // player will go back to normal 
+            moveSpeed = 5;
+            jumpForce = 5;
         }
     }
 
