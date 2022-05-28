@@ -92,6 +92,10 @@ public class PlayerScript : MonoBehaviour
         {
             jumping = false; // this will allow for infinite jumps while in the water
         }
+        if(rb.velocity.y > 5)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 5); // cap how fast we jump up to be about 5
+        }
         if (Input.GetKeyDown(KeyCode.Space) && jumping == false) // jump
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
