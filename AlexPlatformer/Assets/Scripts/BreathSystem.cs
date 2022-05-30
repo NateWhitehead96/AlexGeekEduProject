@@ -10,6 +10,7 @@ public class BreathSystem : MonoBehaviour
     public float currentBreath; // how much breath we have currently
 
     public Slider breathMeter; // access to slider for breath meter
+    bool isDrowning; // to help know when the player is out of breath and underwater
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,11 @@ public class BreathSystem : MonoBehaviour
             breathMeter.value = currentBreath; // set the value of the slider to our current breath
             breathMeter.gameObject.SetActive(true); // make sure the meter is visible
             // check if current breath is 0, then deal damage to player
+            if(currentBreath <= 0 && isDrowning == false)
+            {
+                StartCoroutine(PlayerDrowning());
+                currentBreath = 0; // to make sure current breath doesnt go under 0
+            }
         }
         if(player.swimming == false)
         {
@@ -38,5 +44,13 @@ public class BreathSystem : MonoBehaviour
                 breathMeter.gameObject.SetActive(false);
             }
         }
+    }
+
+    IEnumerator PlayerDrowning()
+    {
+        isDrowning = true;
+        player.PlayerHurt(); // player takes damage
+        yield return new WaitForSeconds(4); // how long the player gets before taking more damage
+        isDrowning = false;
     }
 }

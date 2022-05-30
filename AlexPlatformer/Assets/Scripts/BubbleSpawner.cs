@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BubbleSpawner : MonoBehaviour
 {
-    public GameObject bubble;
+    public GameObject bubble; // the thing to spawn
     public float timer;
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class BubbleSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timer >= 3)
+        if(timer >= 5)
         {
             Instantiate(bubble, transform.position, transform.rotation);
             timer = 0;
