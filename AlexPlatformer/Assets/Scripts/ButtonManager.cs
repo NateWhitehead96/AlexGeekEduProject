@@ -22,4 +22,18 @@ public class ButtonManager : MonoBehaviour
         GameManager.instance.Lives = 3;
         SceneManager.LoadScene(0);
     }
+
+    // Main menu buttons
+    public void PlayGame()
+    {
+        SceneManager.LoadScene("HubWorld"); // load hub world
+    }
+    public void OpenSettings()
+    {
+        SceneManager.LoadScene("Settings"); // load our settings menu
+    }
+    public void ExitGame()
+    {
+        Application.Quit(); // close the game, only works in built version
+    }
 }

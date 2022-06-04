@@ -48,7 +48,7 @@ public class Blooper : MonoBehaviour
             }
             timer += Time.deltaTime;
             float distanceToPlayer = Vector3.Distance(transform.position, player.position); // tell us how far player is from blooper
-            if(distanceToPlayer <= 12) // player is within a screen distance from the blooper
+            if(distanceToPlayer <= 12 && player.GetComponent<PlayerScript>().swimming == true) // player is within a screen distance from the blooper
             {
                 behaviour = BlooperBehaviour.chase;
                 rb.gravityScale = 0; // to help with chasing the player
@@ -68,6 +68,12 @@ public class Blooper : MonoBehaviour
                 behaviour = BlooperBehaviour.wander;
                 rb.gravityScale = 0.2f; // so it has gravity to keep it in the water
             }
+        }
+
+        if(player.GetComponent<PlayerScript>().swimming == false) // reset the squid to wander if player is out of water
+        {
+            behaviour = BlooperBehaviour.wander;
+            rb.gravityScale = 0.2f; // so it has gravity to keep it in the water
         }
     }
 
