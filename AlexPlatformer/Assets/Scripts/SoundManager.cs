@@ -27,4 +27,13 @@ public class SoundManager : MonoBehaviour
     public AudioSource pickup;
     public AudioSource hurt;
     public AudioSource jump;
+
+    public float volume; // can be between 0 and 1
+
+    private void Update()
+    {
+        pickup.volume = volume;
+        hurt.volume = volume;
+        jump.volume = volume;
+    }
 }

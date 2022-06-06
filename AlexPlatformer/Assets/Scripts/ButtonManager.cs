@@ -14,7 +14,12 @@ public class ButtonManager : MonoBehaviour
 
     public void ReturntoHub()
     {
-        SceneManager.LoadScene(0); // load hubworld
+        SceneManager.LoadScene(1); // load hubworld
+    }
+
+    public void ReturnToMain()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void Revive()

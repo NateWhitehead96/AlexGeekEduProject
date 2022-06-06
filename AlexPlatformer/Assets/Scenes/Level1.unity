@@ -3262,10 +3262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907a02e76ac380f43a897309baa48685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelToLoad: 0
+  LevelToLoad: 1
   playerInDoor: 0
   needsKey: 1
-  CurrentLevel: 2
+  CurrentLevel: 3
 --- !u!61 &1137052113
 BoxCollider2D:
   m_ObjectHideFlags: 0

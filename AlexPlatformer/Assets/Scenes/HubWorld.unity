@@ -297,6 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 298887182}
   - component: {fileID: 298887181}
+  - component: {fileID: 298887183}
   m_Layer: 0
   m_Name: Door (3)
   m_TagString: Untagged
@@ -314,7 +315,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.46882403}
@@ -346,6 +347,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &298887183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298887180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907a02e76ac380f43a897309baa48685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelToLoad: 5
+  playerInDoor: 0
+  needsKey: 0
+  CurrentLevel: 0
 --- !u!1001 &318936154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -943,7 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907a02e76ac380f43a897309baa48685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelToLoad: 3
+  LevelToLoad: 4
   playerInDoor: 0
   needsKey: 0
   CurrentLevel: 0
@@ -2361,7 +2378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907a02e76ac380f43a897309baa48685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelToLoad: 2
+  LevelToLoad: 3
   playerInDoor: 0
   needsKey: 0
   CurrentLevel: 0
@@ -2814,7 +2831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907a02e76ac380f43a897309baa48685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelToLoad: 1
+  LevelToLoad: 2
   playerInDoor: 0
   needsKey: 0
   CurrentLevel: 0
@@ -3790,7 +3807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6a2033b37b79488d3abb840036e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelsBeaten: 1
+  LevelsBeaten: 2
   Lives: 3
 --- !u!4 &1894718517
 Transform:

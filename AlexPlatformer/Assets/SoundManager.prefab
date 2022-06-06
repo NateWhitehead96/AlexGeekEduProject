@@ -430,3 +430,4 @@ MonoBehaviour:
   pickup: {fileID: 146408909675431157}
   hurt: {fileID: 146408909782252912}
   jump: {fileID: 146408910475401250}
+  volume: 0.2
