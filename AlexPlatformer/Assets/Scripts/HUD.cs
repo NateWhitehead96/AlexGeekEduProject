@@ -48,6 +48,15 @@ public class HUD : MonoBehaviour
         }
         if(PlayerScript.Health == 0)
         {
+            if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level5")) // if we die in the boss level
+            {
+                GameManager.instance.Lives--; // subtract 1 life
+                if (GameManager.instance.Lives <= 0)
+                {
+                    SceneManager.LoadScene("GameOver"); // load the game over scene at 0 lives
+                }
+                SceneManager.LoadScene("Level5"); // restart the level
+            }
             GameManager.instance.Lives--; // subtract 1 life
             if(GameManager.instance.Lives <= 0)
             {

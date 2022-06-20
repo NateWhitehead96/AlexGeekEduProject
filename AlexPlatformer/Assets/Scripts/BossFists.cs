@@ -17,6 +17,8 @@ public class BossFists : MonoBehaviour
     public float timer; // when it hits the timer slam down
     public bool attacking; // to know if the fist is slamming or not
     public Rigidbody2D rb; // so it can use gravity to slam
+
+    public bool stunned; // to know when the fist is stunned on the ground
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,7 @@ public class BossFists : MonoBehaviour
         }
         if(brain == BossBrain.Tracking)
         {
-            if(attacking == false) // only move fists left and right if it hasnt dropped yet
+            if(attacking == false && stunned == false) // only move fists left and right if it hasnt dropped yet
                 transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.position.x, transform.position.y), Time.deltaTime);
             if (timer >= 3)
             {
@@ -58,15 +60,23 @@ public class BossFists : MonoBehaviour
             collision.gameObject.GetComponent<PlayerScript>().PlayerHurt(); // deal damage to player when fist is slamming
             rb.gravityScale = 0; // resets gravity
             attacking = false;
-            brain = BossBrain.Resetting;
+            StartCoroutine(StunFist()); // stun the fist
             timer = 0;
         }
         if (collision.gameObject.CompareTag("Ground"))// it missed and hit the ground
         {
             rb.gravityScale = 0; // resets gravity
             attacking = false;
-            brain = BossBrain.Resetting;
+            StartCoroutine(StunFist()); // stun fist
             timer = 0;
         }
+    }
+
+    IEnumerator StunFist()
+    {
+        stunned = true; // stun the fist
+        yield return new WaitForSeconds(1); // makes it wait
+        brain = BossBrain.Resetting; // allow it to reset
+        stunned = false;
     }
 }
