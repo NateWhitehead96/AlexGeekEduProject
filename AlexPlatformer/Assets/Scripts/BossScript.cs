@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables; // gives access to using the timeline director
 
 public class BossScript : MonoBehaviour
 {
@@ -13,17 +14,26 @@ public class BossScript : MonoBehaviour
     public float shakeMagnitude; // how aggressive the hsake will be
     public float damping; // helps with slowing down the shake
     public Vector3 initialPosition; // the start position for the head
+
+    public PlayableDirector director; // the final cutscene director
+    bool inCutscene;
     // Start is called before the first frame update
     void Start()
     {
         hitBox = GetComponent<BoxCollider2D>();
         initialPosition = transform.position; // assign its start position
+        director = GetComponent<PlayableDirector>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(shakeDuration > 0)
+        if (director.state != PlayState.Playing && inCutscene == true)
+        {
+            // destroy boss and hands or disable them
+            Destroy(gameObject);
+        }
+        if (shakeDuration > 0)
         {
             transform.localPosition = initialPosition + Random.insideUnitSphere * shakeMagnitude; // add random movement to its position
             shakeDuration -= Time.deltaTime * damping; // slow down and stop the shaking
@@ -49,7 +59,8 @@ public class BossScript : MonoBehaviour
         {
             HealthChunks[4].SetActive(false);
             FindObjectOfType<BossTrigger>().BossDefeated(); // this hides some stuff when the boss dies
-            Destroy(gameObject); // will change later
+            director.Play(); // now play the animation
+            inCutscene = true;
         }
     }
 
