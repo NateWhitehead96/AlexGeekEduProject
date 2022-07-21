@@ -17,7 +17,35 @@ public class TowerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        PlaceTower();
+    }
+
+    public void PlaceTower() // how we place towers
+    {
+        if(Input.GetMouseButtonDown(0) && towerToPlace != null) // left click and our tower is on our mouse
+        {
+            Tile nearestTile = null; // the closest tile
+            float nearestDistance = float.MaxValue; // that tiles distance
+
+            foreach(Tile tile in tiles)
+            { // find distance from each tile to our mouse position
+                float distance = Vector2.Distance(tile.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                if(distance < nearestDistance) // if the distance is the lowest amount
+                {
+                    nearestDistance = distance; // that is the distance to the tile
+                    nearestTile = tile; // make this our nearest tile
+                }
+            }
+            if(nearestTile.isOccupied == false) // if that tile is not occupied
+            {
+                Tower newTower = Instantiate(towerToPlace, nearestTile.transform.position, transform.rotation); // spawn our tower at the tile
+                newTower.tile = nearestTile; // set the tile
+                nearestTile.isOccupied = true; // set to occupied
+                towerToPlace = null; // clear our tower
+                Cursor.visible = true; // show default cursor
+                customCursor.gameObject.SetActive(false); // hide custom cursor
+            }
+        }
     }
 
     public void BuyTower(Tower tower)
