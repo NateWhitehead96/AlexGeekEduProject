@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class TowerManager : MonoBehaviour
     public Tower towerToPlace; // to know which tower we are placing
     public CustomCursor customCursor; // access to the cursor
     public Tile[] tiles; // to know about all of our tiles in the game
+    public Text goldDisplay; // updating how much gold the player has
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,7 @@ public class TowerManager : MonoBehaviour
     void Update()
     {
         PlaceTower();
+        goldDisplay.text = "Gold: " + gold; // this will display our current gold
     }
 
     public void PlaceTower() // how we place towers
