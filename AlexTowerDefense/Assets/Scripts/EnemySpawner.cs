@@ -44,6 +44,10 @@ public class EnemySpawner : MonoBehaviour
         {
             currentEnemy = 1; // spawn skeletons
         }
+        if (wave >= 10)
+        {
+            currentEnemy = 2; // spawn ghosts
+        }
         yield return new WaitForSeconds(2); // wait 2 seconds
         waveDisplay.gameObject.SetActive(false); // hide display
     }

@@ -10,10 +10,13 @@ public class TowerManager : MonoBehaviour
     public CustomCursor customCursor; // access to the cursor
     public Tile[] tiles; // to know about all of our tiles in the game
     public Text goldDisplay; // updating how much gold the player has
+    public GameObject GameOverCanvas;
+    public int lives; // how many lives we got
     // Start is called before the first frame update
     void Start()
     {
         customCursor.gameObject.SetActive(false); // hide the cursor on start
+        GameOverCanvas.SetActive(false);
     }
 
     // Update is called once per frame
@@ -21,6 +24,11 @@ public class TowerManager : MonoBehaviour
     {
         PlaceTower();
         goldDisplay.text = "Gold: " + gold; // this will display our current gold
+        if(lives <= 0)
+        {
+            Time.timeScale = 0;
+            GameOverCanvas.SetActive(true);
+        }
     }
 
     public void PlaceTower() // how we place towers
