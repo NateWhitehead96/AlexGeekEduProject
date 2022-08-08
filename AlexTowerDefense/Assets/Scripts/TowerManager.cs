@@ -12,9 +12,11 @@ public class TowerManager : MonoBehaviour
     public Text goldDisplay; // updating how much gold the player has
     public GameObject GameOverCanvas;
     public int lives; // how many lives we got
+    public Text livesDisplay; // show the player the lives they have
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1; // if we lost the game and hit replay, the game wont be frozen
         customCursor.gameObject.SetActive(false); // hide the cursor on start
         GameOverCanvas.SetActive(false);
     }
@@ -24,6 +26,7 @@ public class TowerManager : MonoBehaviour
     {
         PlaceTower();
         goldDisplay.text = "Gold: " + gold; // this will display our current gold
+        livesDisplay.text = "Lives: " + lives; // this will display our current lives
         if(lives <= 0)
         {
             Time.timeScale = 0;
@@ -57,11 +60,18 @@ public class TowerManager : MonoBehaviour
                 customCursor.gameObject.SetActive(false); // hide custom cursor
             }
         }
+        if(Input.GetMouseButtonDown(1) && towerToPlace != null) // right clicking on the mouse and have a tower to place
+        {
+            gold += towerToPlace.cost; // refund
+            towerToPlace = null; // get rid of it from our manager
+            customCursor.gameObject.SetActive(false); // hide custom cursor
+            Cursor.visible = true;
+        }
     }
 
     public void BuyTower(Tower tower)
     {
-        if(gold >= tower.cost)
+        if(gold >= tower.cost && towerToPlace == null) // we can only buy a tower if we can afford and dont have a tower on mouse
         {
             customCursor.gameObject.SetActive(true);
             customCursor.GetComponent<SpriteRenderer>().sprite = tower.GetComponent<SpriteRenderer>().sprite; // makes cursor same image as tower

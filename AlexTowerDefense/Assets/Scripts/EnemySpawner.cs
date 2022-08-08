@@ -48,6 +48,10 @@ public class EnemySpawner : MonoBehaviour
         {
             currentEnemy = 2; // spawn ghosts
         }
+        if (wave >= 15)
+        {
+            currentEnemy = 3; // spawn mummies
+        }
         yield return new WaitForSeconds(2); // wait 2 seconds
         waveDisplay.gameObject.SetActive(false); // hide display
     }

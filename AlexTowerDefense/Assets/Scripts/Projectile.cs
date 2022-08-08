@@ -19,12 +19,16 @@ public class Projectile : MonoBehaviour
 
     // LightningBolt Helper variables
     private int currentEnemy = 0; // count up based on what enemy it's hitting
+    private List<GameObject> enemies; // list of enemies the bolt can bounce to
 
     private float timer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(type == ProjectileType.LightningBolt)
+        {
+            enemies = towerThatShot.enemiesInRange; // assign the enemies near the tower to this list
+        }
     }
 
     // Update is called once per frame
@@ -43,6 +47,7 @@ public class Projectile : MonoBehaviour
         {
             if (target == null) // if the enemy has died before the arrow gets to it
             {
+                target = transform; // assign it to itself
                 Destroy(gameObject); // destroy the projectile
             }
             transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime); // movement for the arrow
@@ -70,11 +75,12 @@ public class Projectile : MonoBehaviour
             {
                 collision.gameObject.GetComponent<Enemy>().health -= damage;
                 currentEnemy++; // count up to go to the next enemy in the towers list of enemies
-                if(currentEnemy >= towerThatShot.enemiesInRange.Count) // the bolt as hit the end of the list of enemies
+                if(currentEnemy >= enemies.Count) // the bolt as hit the end of the list of enemies
                 {
                     Destroy(gameObject); // destroy the bolt
                 }
-                target = towerThatShot.enemiesInRange[currentEnemy].transform; // try to move to the next enemy
+                else
+                    target = enemies[currentEnemy].transform; // try to move to the next enemy
             }
             if(type == ProjectileType.FireBlast)
             {

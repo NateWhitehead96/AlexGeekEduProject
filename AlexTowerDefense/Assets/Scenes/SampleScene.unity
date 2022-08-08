@@ -433,6 +433,7 @@ MonoBehaviour:
   - {fileID: 9160908882593281081, guid: 7773a8d93b87e6b41a60e684a7ec2a19, type: 3}
   - {fileID: 8357052994122532190, guid: 7fc5b85ddfad03d4f8da732e77f79c69, type: 3}
   - {fileID: 7725209460103018605, guid: 9fff8a95c48ebe345b1950ed4c685bd8, type: 3}
+  - {fileID: 7021717891128714416, guid: 475651886c433114bb506efdfea20d37, type: 3}
   timer: 0
   wave: 1
   enemiesRemaining: 2
@@ -3012,7 +3013,8 @@ MonoBehaviour:
   - {fileID: 325346716}
   goldDisplay: {fileID: 1793543689}
   GameOverCanvas: {fileID: 855897743}
-  lives: 0
+  lives: 5
+  livesDisplay: {fileID: 999985438}
 --- !u!114 &539143493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3090,6 +3092,7 @@ RectTransform:
   - {fileID: 1702015150}
   - {fileID: 430759021}
   - {fileID: 413512080}
+  - {fileID: 999985437}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4915,8 +4918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9729d8d2ff262b46a9ea2c5059d962b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverText: {fileID: 0}
-  enemySpawner: {fileID: 0}
+  gameOverText: {fileID: 229617913}
+  enemySpawner: {fileID: 48827797}
 --- !u!1 &881817920
 GameObject:
   m_ObjectHideFlags: 0
@@ -5838,6 +5841,85 @@ MonoBehaviour:
   unoccupiedColor: {r: 0.31077415, g: 0.6886792, b: 0.2956123, a: 1}
   occupiedColor: {r: 0.06710574, g: 0.49056602, b: 0.081676506, a: 1}
   sprite: {fileID: 0}
+--- !u!1 &999985436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 999985437}
+  - component: {fileID: 999985439}
+  - component: {fileID: 999985438}
+  m_Layer: 5
+  m_Name: Lives Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &999985437
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999985436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 539143496}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 513.7351, y: -206.14}
+  m_SizeDelta: {x: 194.4887, y: 57.8561}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &999985438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999985436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Lives: 999999'
+--- !u!222 &999985439
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999985436}
+  m_CullTransparentMesh: 1
 --- !u!1 &1022307409
 GameObject:
   m_ObjectHideFlags: 0
@@ -7777,7 +7859,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1487499191}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 855897748}
+        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1487499191
 MonoBehaviour:
   m_ObjectHideFlags: 0
