@@ -50,7 +50,11 @@ public class EnemySpawner : MonoBehaviour
         }
         if (wave >= 15)
         {
-            currentEnemy = 3; // spawn mummies
+            currentEnemy = 3; // spawn bats
+        }
+        if (wave >= 20)
+        {
+            currentEnemy = 4; // spawn mummy
         }
         yield return new WaitForSeconds(2); // wait 2 seconds
         waveDisplay.gameObject.SetActive(false); // hide display
