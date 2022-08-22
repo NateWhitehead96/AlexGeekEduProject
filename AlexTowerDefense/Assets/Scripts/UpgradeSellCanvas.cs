@@ -22,8 +22,12 @@ public class UpgradeSellCanvas : MonoBehaviour
         if(FindObjectOfType<TowerManager>().gold >= 50)
         {
             // we want to increase damage to our tower
+            selectedTower.damage++; // increase damage
+            FindObjectOfType<TowerManager>().gold -= 50;
+            
         }
-        transform.position = new Vector3(100, 100, 0); // move the canvas off screen;
+        transform.position = new Vector3(100, 100, 0); // move the canvas off screen
+        selectedTower = null;
     }
 
     public void Sell()

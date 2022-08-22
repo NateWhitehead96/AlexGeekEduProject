@@ -115,6 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 100
   tile: {fileID: 0}
+  canvas: {fileID: 0}
+  damage: 2
 --- !u!114 &313417163020954787
 MonoBehaviour:
   m_ObjectHideFlags: 0

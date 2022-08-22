@@ -6,7 +6,8 @@ public enum ProjectileType
 {
     Arrow,
     LightningBolt,
-    FireBlast
+    FireBlast,
+    Cannon
 }
 
 public class Projectile : MonoBehaviour
@@ -22,6 +23,7 @@ public class Projectile : MonoBehaviour
     private List<GameObject> enemies; // list of enemies the bolt can bounce to
 
     private float timer;
+    public LayerMask enemyLayer; // layer that all enemies will be on so our cannon blast can hurt them
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +65,15 @@ public class Projectile : MonoBehaviour
                 collision.gameObject.GetComponent<Enemy>().health -= damage; // deal the damage
                 Destroy(gameObject); // destroy arrow
             }
-            
+            if(type == ProjectileType.Cannon)
+            {
+                Collider2D[] enemiesInBlast = Physics2D.OverlapCircleAll(collision.transform.position, 1, enemyLayer); // find all enemies
+                for (int i = 0; i < enemiesInBlast.Length; i++) // loop through all enemies
+                {
+                    enemiesInBlast[i].GetComponent<Enemy>().health -= damage; // each enemy will take the cannon's damage
+                }
+                Destroy(gameObject); // destroy the cannonball
+            }
         }
     }
 

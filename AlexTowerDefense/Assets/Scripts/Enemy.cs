@@ -10,9 +10,13 @@ public class Enemy : MonoBehaviour
     public int health; // health
     public float speed; // how fast it moves
     public Slider healthBar; // floating health bar above our enemies
+
+    public Animator anim; // animaton controller
+    public bool dying; // help with playing dying animation
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>(); // links our animator to the component on the gameobject
         path = FindObjectOfType<Path>(); // set path to the game path
         healthBar.maxValue = health; // set the max health
     }
@@ -33,10 +37,21 @@ public class Enemy : MonoBehaviour
             FindObjectOfType<TowerManager>().lives--; // subtract a life when an enemy reaches the end
             Destroy(gameObject);
         }
-        if(health <= 0)
+        if (health <= 0 && dying == false)
         {
-            FindObjectOfType<TowerManager>().gold += 5; // give the player gold on kill
-            Destroy(gameObject); // kill enemy
+            StartCoroutine(EnemyDying());
+            
         }
+    }
+
+    IEnumerator EnemyDying()
+    {
+        dying = true;
+        FindObjectOfType<TowerManager>().gold += 5; // give the player gold on kill
+        anim.SetBool("dying", true); // activating the death animation
+        speed = 0; // stop it from moving
+        GetComponent<BoxCollider2D>().enabled = false; // disable the collider
+        yield return new WaitForSeconds(0.5f); // little wait before killing enemy
+        Destroy(gameObject); // kill enemy
     }
 }
